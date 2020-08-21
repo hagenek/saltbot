@@ -33,7 +33,8 @@ bot.on('message', (data) => {
     if(data.type !== 'message') {
         return;
     }
-    handleMessage(data);
+        console.log("Message received")
+        handleMessage(data);
 })
 
 // Response Handler
@@ -52,6 +53,8 @@ function handleMessage(data) {
         bot.getUsers().then(data => console.log(data))
     } else if (data.text.includes("pomodoro")) {
         pomodoro(data.user)
+    } else if (data.text.includes("dadjoke")) {
+        dadJokes(data.user);
     }
 }
 
@@ -64,8 +67,6 @@ function pomodoro(userId) {
     setTimeout(() => {
         bot.postMessage(userId, "Time to take a break!")
     }, 25 * minute)
-
-
 }
 
 function sendBootsToUser(userId) {
@@ -75,6 +76,33 @@ function sendBootsToUser(userId) {
 function encUser(userId) {
     const random = Math.floor(Math.random() * quotes.length);
     bot.postMessage(userId, quotes[random])
+}
+
+// Dad jokes please
+
+const dadJokes = (userId) => {
+
+    console.log("Userid: ", userId)
+
+    axios({
+        "method":"GET",
+        "url":"https://dad-jokes.p.rapidapi.com/random/jokes",
+        "headers":{
+        "content-type":"application/octet-stream",
+        "x-rapidapi-host":"dad-jokes.p.rapidapi.com",
+        "x-rapidapi-key":"ab6f131638mshd9ccda499375f86p1a3471jsnb7698b37e834",
+        "useQueryString":true
+        }
+        })
+        .then((response)=>{  
+          bot.postMessage(userId, response.data.setup)
+          setTimeout(() => {
+              bot.postMessage(userId, response.data.punchline)
+          }, 7000)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
 }
    
 // inspire Me
@@ -98,8 +126,6 @@ function inspireMe(userId) {
 
       })
 }
-
-inspireMe();
 
 // Random Joke
 function randomJoke() {
