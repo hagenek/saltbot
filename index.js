@@ -146,10 +146,6 @@ function randomJoke() {
       })
 }
 
-function uploadBoots() {
-
-}
-
 // Show Help
 function runHelp() {
     const params = {
