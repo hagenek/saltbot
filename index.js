@@ -95,9 +95,9 @@ const dadJokes = (userId) => {
         }
         })
         .then((response)=>{  
-          bot.postMessage(userId, response.data.setup)
+          bot.postMessage("saltbottesting", response.data.setup)
           setTimeout(() => {
-              bot.postMessage(userId, response.data.punchline)
+              bot.postMessage("saltbottesting", response.data.punchline)
           }, 7000)
         })
         .catch((error)=>{
@@ -119,7 +119,7 @@ function inspireMe(userId) {
             }
         
             bot.postMessage(
-                userId,
+                "saltbottesting",
                 `:zap: ${quote} - *${author}*`,
                 params
             );
@@ -138,7 +138,7 @@ function randomJoke() {
             }
         
             bot.postMessageToChannel(
-                'random',
+                'saltbottesting',
                 `:zap: ${joke}`,
                 params
             );
