@@ -17,6 +17,7 @@
     "slackbots": "^1.2.0"
   },
   "devDependencies": {
+    "heroku": "^7.42.13",
     "nodemon": "^2.0.4"
   }
 }

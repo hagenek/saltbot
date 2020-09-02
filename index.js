@@ -6,7 +6,7 @@ require('dotenv').config();
 const quotes = require("./encourageQuotes.js")
 
 const bot = new SlackBot({
-    token: `${process.env.BOT_TOKEN}`,
+    token: `${process.env.API}`,
     name: 'SaltBot'
 })
 
