@@ -5,6 +5,8 @@ require('dotenv').config();
 
 const quotes = require("./encourageQuotes.js")
 
+//Initialzing the bot object with the slack token
+
 const bot = new SlackBot({
     token: `${process.env.API}`,
     name: 'SaltBot'
@@ -30,22 +32,22 @@ bot.on('error', (err) => {
 
 // Message Handler
 bot.on('message', (data) => {
-    if(data.type !== 'message') {
+    if (data.type !== 'message') {
         return;
     }
-        console.log("Message received")
-        handleMessage(data);
+    console.log("Message received")
+    handleMessage(data);
 })
 
 // Response Handler
 function handleMessage(data) {
-    if(data.text.includes(' inspire me')) {
+    if (data.text.includes(' inspire me')) {
         inspireMe(data.user)
-    } else if(data.text.includes(' random joke')) {
+    } else if (data.text.includes(' random joke')) {
         randomJoke()
-    } else if(data.text.includes(' help')) {
+    } else if (data.text.includes(' help')) {
         runHelp()
-    } else if(data.text.includes("encourage")) {
+    } else if (data.text.includes("encourage")) {
         encUser(data.user)
     } else if (data.text.includes("boots")) {
         sendBootsToUser(data.user);
@@ -85,30 +87,30 @@ const dadJokes = (userId) => {
     console.log("Userid: ", userId)
 
     axios({
-        "method":"GET",
-        "url":"https://dad-jokes.p.rapidapi.com/random/jokes",
-        "headers":{
-        "content-type":"application/octet-stream",
-        "x-rapidapi-host":"dad-jokes.p.rapidapi.com",
-        "x-rapidapi-key":"ab6f131638mshd9ccda499375f86p1a3471jsnb7698b37e834",
-        "useQueryString":true
-        }
+            "method": "GET",
+            "url": "https://dad-jokes.p.rapidapi.com/random/jokes",
+            "headers": {
+                "content-type": "application/octet-stream",
+                "x-rapidapi-host": "dad-jokes.p.rapidapi.com",
+                "x-rapidapi-key": "ab6f131638mshd9ccda499375f86p1a3471jsnb7698b37e834",
+                "useQueryString": true
+            }
         })
-        .then((response)=>{  
-          bot.postMessage("saltbottesting", response.data.setup)
-          setTimeout(() => {
-              bot.postMessage("saltbottesting", response.data.punchline)
-          }, 7000)
+        .then((response) => {
+            bot.postMessage("saltbottesting", response.data.setup)
+            setTimeout(() => {
+                bot.postMessage("saltbottesting", response.data.punchline)
+            }, 7000)
         })
-        .catch((error)=>{
-          console.log(error)
+        .catch((error) => {
+            console.log(error)
         })
 }
-   
+
 // inspire Me
 function inspireMe(userId) {
     axios.get('https://raw.githubusercontent.com/BolajiAyodeji/inspireNuggets/master/src/quotes.json')
-      .then(res => {
+        .then(res => {
             const quotes = res.data;
             const random = Math.floor(Math.random() * quotes.length);
             const quote = quotes[random].quote
@@ -117,33 +119,33 @@ function inspireMe(userId) {
             const params = {
                 icon_emoji: ':male-technologist:'
             }
-        
+
             bot.postMessage(
                 "saltbottesting",
                 `:zap: ${quote} - *${author}*`,
                 params
             );
 
-      })
+        })
 }
 
 // Random Joke
 function randomJoke() {
     axios.get('https://api.chucknorris.io/jokes/random')
-      .then(res => {
+        .then(res => {
             const joke = res.data.value;
 
             const params = {
                 icon_emoji: ':smile:'
             }
-        
+
             bot.postMessageToChannel(
                 'saltbottesting',
                 `:zap: ${joke}`,
                 params
             );
 
-      })
+        })
 }
 
 // Show Help
