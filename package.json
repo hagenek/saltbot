@@ -1,23 +1,23 @@
 {
-  "name": "slackbot",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "Georg Ekeberg",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^0.19.2",
-    "dotenv": "^8.2.0",
-    "pingmydyno": "^1.5.1",
-    "slackbots": "^1.2.0"
-  },
-  "devDependencies": {
-    "heroku": "^7.42.13",
-    "nodemon": "^2.0.4"
-  }
+    "name": "slackbot",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Georg Ekeberg",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.19.2",
+        "dotenv": "^8.2.0",
+        "pingmydyno": "^1.5.1",
+        "slackbots": "^1.2.0"
+    },
+    "devDependencies": {
+        "heroku": "^7.42.13",
+        "nodemon": "^2.0.4"
+    }
 }
